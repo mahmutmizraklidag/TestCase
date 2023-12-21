@@ -12,8 +12,12 @@ namespace TestCase.Service.Services
 {
     public class EmployeeService : GenericService<Employee>, IEmployeeService
     {
-        public EmployeeService(IEmployeeRepository repository) : base(repository)
+        private readonly IEmployeeRepository _repository;
+
+        public EmployeeService(IEmployeeRepository repository):base(repository) 
         {
+            _repository = repository;
         }
+
     }
 }

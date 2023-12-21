@@ -12,6 +12,7 @@ namespace TestCase.Repository
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<ProductUse> ProductUses { get; set; }
         public EfDbContext(DbContextOptions<EfDbContext> options):base(options) 
         {
                 

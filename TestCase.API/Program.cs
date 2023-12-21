@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using TestCase.API.ValidationProfiles;
 using TestCase.Core.OrderInterface;
 using TestCase.Core.Repositories;
@@ -14,6 +15,8 @@ using TestCase.Service.Services;
 var builder = WebApplication.CreateBuilder(args);
 var services=builder.Services;
 // Add services to the container.
+
+builder.Services.AddControllersWithViews().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

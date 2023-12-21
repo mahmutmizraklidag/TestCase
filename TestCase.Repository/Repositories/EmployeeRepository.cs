@@ -11,8 +11,15 @@ namespace TestCase.Repository.Repositories
 {
     public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(DbContext context) : base(context)
+        private readonly DbContext _dbContext;
+        private readonly DbSet<Employee> _employees;
+
+        public EmployeeRepository(DbContext dbContext) : base(dbContext)
         {
+            _dbContext = dbContext;
+            _employees = dbContext.Set<Employee>();
         }
+
+       
     }
 }

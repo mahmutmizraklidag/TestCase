@@ -10,7 +10,6 @@ namespace TestCase.Core.DTOs.Product
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Consumption { get; set; }
         public string ProductSubstitution { get; set; }
         public decimal Price { get; set; }
     }

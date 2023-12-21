@@ -14,6 +14,6 @@ namespace TestCase.Core.Entities
         public string Surname { get; set; }
         public string Type { get; set; }
         public double Voting { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ProductUse> ProductUses { get; set; }
     }
 }

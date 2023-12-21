@@ -28,6 +28,7 @@ namespace TestCase.API.Controllers
             _unitOfWorks = unitOfWorks;
         }
         [HttpGet]
+
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _employeeService.GetAllAsync();
@@ -35,6 +36,7 @@ namespace TestCase.API.Controllers
             return Ok(getDTOs);
         }
         [HttpGet("{id}")]
+
         public async Task<ActionResult<GetEmployeeDTO>> GetAsync(int id)
         {
             var data = await _employeeService.FindAsync(id);
@@ -42,6 +44,9 @@ namespace TestCase.API.Controllers
 
             return Ok(data);
         }
+
+       
+
         [HttpPost]
         public async Task<IActionResult> AddAsync(AddEmployeeDTO addProduct)
         {
@@ -50,6 +55,7 @@ namespace TestCase.API.Controllers
             await _unitOfWorks.SaveChangesAsync();
             return Ok();
         }
+
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UpdateEmployeeDTO updateProduct)
         {
@@ -59,6 +65,7 @@ namespace TestCase.API.Controllers
 
             return Ok();
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

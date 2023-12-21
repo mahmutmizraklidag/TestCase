@@ -11,7 +11,7 @@ using TestCase.Repository;
 namespace TestCase.Repository.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20231219104853_First")]
+    [Migration("20231220104941_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -23,21 +23,6 @@ namespace TestCase.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EmployeeProduct", b =>
-                {
-                    b.Property<int>("EmployeesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("EmployeeProduct");
-                });
 
             modelBuilder.Entity("TestCase.Core.Entities.Employee", b =>
                 {
@@ -94,19 +79,54 @@ namespace TestCase.Repository.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("EmployeeProduct", b =>
+            modelBuilder.Entity("TestCase.Core.Entities.ProductUse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductUses");
+                });
+
+            modelBuilder.Entity("TestCase.Core.Entities.ProductUse", b =>
                 {
                     b.HasOne("TestCase.Core.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesId")
+                        .WithMany("ProductUses")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TestCase.Core.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
+                    b.HasOne("TestCase.Core.Entities.Product", "Product")
+                        .WithMany("ProductUse")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TestCase.Core.Entities.Employee", b =>
+                {
+                    b.Navigation("ProductUses");
+                });
+
+            modelBuilder.Entity("TestCase.Core.Entities.Product", b =>
+                {
+                    b.Navigation("ProductUse");
                 });
 #pragma warning restore 612, 618
         }
